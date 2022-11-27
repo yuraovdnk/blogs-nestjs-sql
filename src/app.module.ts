@@ -53,6 +53,7 @@ import { TestingController } from './features/testing/testing.controller';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { DatabaseModule } from './adapters/database/database.module';
+import { TerminateSessionByDeviceIdUseCase } from './features/devices/use-cases/terminate-session-by-deviceId.use-case';
 
 const useCases = [
   SetLikeStatusForCommentUseCase,
@@ -68,6 +69,8 @@ const useCases = [
   UpdateBlogUseCase,
   DeleteBlogUseCase,
   CreatePostForBlogUseCase,
+  TerminateSessionsUseCase,
+  TerminateSessionByDeviceIdUseCase,
 ];
 
 @Module({

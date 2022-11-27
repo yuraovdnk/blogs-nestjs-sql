@@ -40,8 +40,8 @@ export class AuthController {
   async login(@Res() res: Response, @CurrentUser() userId: string, @DeviceMeta() deviceInfo: any) {
     const tokens = await this.authService.generateTokens(userId, deviceInfo);
     res.cookie('refreshToken', tokens.refreshToken, {
-      httpOnly: true,
-      secure: true,
+      //httpOnly: true,
+      //secure: true,
     });
     res.status(200).send({ accessToken: tokens.accessToken });
   }
@@ -56,8 +56,8 @@ export class AuthController {
   ) {
     const tokens = await this.authService.generateTokens(userId, deviceInfo);
     res.cookie('refreshToken', tokens.refreshToken, {
-      httpOnly: true,
-      secure: true,
+      //httpOnly: true,
+      //secure: true,
     });
     res.status(200).send({ accessToken: tokens.accessToken });
   }
