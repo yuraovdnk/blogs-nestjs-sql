@@ -1,5 +1,5 @@
 import { getConfig } from './configuration/config';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 const configModule = ConfigModule.forRoot({
   load: [getConfig],
   isGlobal: true,
