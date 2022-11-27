@@ -18,8 +18,8 @@ export class LocalStrategy extends PassportStrategy(Strategy, 'local') {
     });
   }
 
-  async validate(login: string, password: string): Promise<any> {
-    const candidate = await this.usersRepository.findByLoginOrEmail(login);
+  async validate(loginOrEmail: string, password: string): Promise<any> {
+    const candidate = await this.usersRepository.findByLoginOrEmail(loginOrEmail);
 
     if (!candidate || !candidate.isConfirmedEmail) {
       throw new UnauthorizedException();
