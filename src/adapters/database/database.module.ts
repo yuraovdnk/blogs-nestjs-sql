@@ -17,6 +17,9 @@ const configModule = ConfigModule.forRoot({
         type: 'postgres',
         autoLoadEntities: false,
         synchronize: true,
+        extra: {
+          connectionLimit: 6,
+        },
         url:
           process.env.NODE_ENV === 'production'
             ? configService.get<string>('db.postgresUriProduction')
