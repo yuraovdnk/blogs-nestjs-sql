@@ -13,7 +13,7 @@ export class LocalAuthGuard extends AuthGuard('local') {}
 export class LocalStrategy extends PassportStrategy(Strategy, 'local') {
   constructor(private authService: AuthService, private usersRepository: UsersRepository) {
     super({
-      usernameField: 'login',
+      usernameField: 'loginOrEmail',
       passwordField: 'password',
     });
   }
