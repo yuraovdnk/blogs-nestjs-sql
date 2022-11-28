@@ -43,6 +43,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
     }
     if (exception instanceof BadRequestException) {
       const errors: any = exception.getResponse();
+      console.log(errors);
       response.status(status).json({
         errorsMessages: errors.message,
       });
