@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, Param, ParseUUIDPipe, UseGuards } from '@nestjs/common';
+import { Controller, Delete, Get, HttpCode, Param, ParseUUIDPipe, UseGuards } from '@nestjs/common';
 import { CurrentUser } from '../../decorators/current-user.decorator';
 import { AuthSessionRepository } from '../auth/infrastructure/auth-session.repository';
 import { DeviceMeta } from '../../decorators/device-meta.decotator';
@@ -22,6 +22,7 @@ export class DevicesController {
 
   @UseGuards(JwtCookieGuard)
   @Delete('devices')
+  @HttpCode(204)
   async terminateSessions(@CurrentUser() userId: string, @DeviceMeta() deviceInfo: any) {
     return this.commandBus.execute(new TerminateSessionsCommand(deviceInfo.deviceId, userId));
   }
