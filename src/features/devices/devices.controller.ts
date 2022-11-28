@@ -29,6 +29,7 @@ export class DevicesController {
 
   @UseGuards(JwtCookieGuard)
   @Delete('devices/:deviceId')
+  @HttpCode(204)
   async terminateSessionByDeviceId(
     @CurrentUser() userId: string,
     @Param('deviceId', ParseUUIDPipe) deviceId: string,
