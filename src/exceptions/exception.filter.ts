@@ -28,7 +28,6 @@ export class ErrorExceptionFilter implements ExceptionFilter {
 
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
-  constructor(private configService: ConfigService) {}
   catch(exception: HttpException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
@@ -42,7 +41,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
       const errors: any = exception.getResponse();
       response.status(status).json(errors);
     }
-
     if (exception instanceof BadRequestException) {
       const errors: any = exception.getResponse();
       response.status(status).json({
