@@ -32,7 +32,7 @@ export class EmailManager {
       from: '"Yura" <yuraovdnk@gmail.com>',
       to: user.email,
       subject: 'Passwrod recovery code',
-      text: `https://somesite.com/recovery-password?code=${user.passwordRecoveryCode}`,
+      text: `https://somesite.com/password-recovery?recoveryCode=${user.passwordRecoveryCode}`,
     });
     return info;
   }
