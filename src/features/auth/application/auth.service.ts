@@ -165,7 +165,6 @@ export class AuthService {
 
   async setNewPassword(newPasswordDto: NewPasswordDto): Promise<boolean> {
     const user = await this.usersRepository.findByRecoveryCode(newPasswordDto.recoveryCode);
-    console.log(user);
     if (!user) {
       throw new BadRequestException(mapErrors('recoveryCode is incorrect', 'recoveryCode'));
     }
