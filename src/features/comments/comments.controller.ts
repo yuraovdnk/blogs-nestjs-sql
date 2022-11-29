@@ -20,6 +20,7 @@ import { JwtExtractGuard } from '../auth/guards/jwt-extract.guard';
 import { UpdateCommentCommand } from './application/use-cases/commands/update-comment.use-case';
 import { DeleteCommentCommand } from './application/use-cases/commands/delete-comment.use-case';
 import { JwtGuard } from '../auth/strategies/jwt.strategy';
+import { ParseStatusLikeEnumPipe } from '../../pipes/status-like-enum.pipe';
 
 @Controller('comments')
 export class CommentsController {
@@ -69,7 +70,7 @@ export class CommentsController {
   async setLikeStatus(
     @Param('commentId', ParseUUIDPipe) commentId: string,
     @CurrentUser() userId: string,
-    @Body('likeStatus') likeStatus: string,
+    @Body('likeStatus', ParseStatusLikeEnumPipe) likeStatus: string,
   ) {
     return this.commandBus.execute(
       new SetLikeStatusForCommentCommand(commentId, userId, likeStatus),
