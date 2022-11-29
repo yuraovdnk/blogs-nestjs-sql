@@ -83,9 +83,7 @@ export class AuthController {
   @Post('new-password')
   @HttpCode(204)
   async setNewPassword(@Body() newPasswordDto: NewPasswordDto) {
-    const res = await this.authService.setNewPassword(newPasswordDto);
-    console.log(res);
-    return res;
+    return this.authService.setNewPassword(newPasswordDto);
   }
 
   @Get('me')
