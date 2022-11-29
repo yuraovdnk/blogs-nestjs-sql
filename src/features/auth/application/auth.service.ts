@@ -163,14 +163,15 @@ export class AuthService {
     return true;
   }
 
-  async setNewPassword(newPasswordDto: NewPasswordDto) {
+  async setNewPassword(newPasswordDto: NewPasswordDto): Promise<boolean> {
     const user = await this.usersRepository.findByRecoveryCode(newPasswordDto.recoveryCode);
+    console.log(user);
     if (!user) {
       throw new BadRequestException(mapErrors('recoveryCode is incorrect', 'recoveryCode'));
     }
 
     if (user.expirationPasswordRecoveryCode < new Date()) {
-      throw new BadRequestException();
+      throw new BadRequestException(mapErrors('recoveryCode is incorrect', 'recoveryCode'));
     }
     const passwordHash = await bcrypt.hash(newPasswordDto.newPassword, 10);
     return this.usersRepository.setNewPassword(user.id, passwordHash);
