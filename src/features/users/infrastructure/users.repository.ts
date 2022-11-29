@@ -132,7 +132,7 @@ export class UsersRepository {
              Returning *`,
       [userId, newPassword],
     );
-    console.log(resQuery);
+    console.log(resQuery, '11');
     return resQuery[1] === 1;
   }
 }
