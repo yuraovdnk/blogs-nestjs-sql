@@ -98,6 +98,7 @@ export class PostsController {
 
   @UseGuards(JwtGuard)
   @Put(':postId/like-status')
+  @HttpCode(204)
   async setLikeForPost(
     @Param('postId', ParseUUIDPipe) postId: string,
     @Body('likeStatus', ParseStatusLikeEnumPipe) likeStatus: string,

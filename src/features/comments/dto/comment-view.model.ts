@@ -10,6 +10,7 @@ export class CommentViewModel {
     myStatus: string;
   };
   constructor(model: any) {
+    console.log(model.createdAt.toISOString());
     this.id = model.id;
     this.content = model.content;
     this.userId = model.userId;

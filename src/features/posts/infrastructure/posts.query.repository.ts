@@ -24,7 +24,9 @@ export class PostsQueryRepository {
                     From "Likes" l Where l."parentId" = cu."id" )::int,
                 (Select "likeStatus"  From "Likes" l
                     Where cu."id" = l."parentId" And l."userId" = $1) as "myStatus"             
-              From (Select p.*
+              From (Select p.*,
+                    (select "name" from "Blogs" b
+                        Where b."id" = p."blogId") as "blogName"
                     from "Posts" p 
                     Limit ${queryParams.pageSize} Offset ${skip}) as cu
               left join (Select l."parentId" ,
@@ -40,6 +42,7 @@ export class PostsQueryRepository {
               Where likes."likeNum" < 4 OR likes."likeNum" IS null`,
       [userId],
     );
+    console.log(resQuery, '1');
     const queryMap = queryPostsMapper(resQuery);
     return new PageDto(queryMap, queryParams);
   }

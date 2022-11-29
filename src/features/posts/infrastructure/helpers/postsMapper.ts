@@ -13,6 +13,7 @@ export function queryPostsMapper(resQuery: QueryPostModel[]): PostViewModel[] {
         shortDescription: postElem.shortDescription,
         content: postElem.content,
         blogId: postElem.blogId,
+        blogName: postElem.blogName,
         createdAt: postElem.createdAt,
         extendedLikesInfo: {
           myStatus: postElem.myStatus ?? 'None',
