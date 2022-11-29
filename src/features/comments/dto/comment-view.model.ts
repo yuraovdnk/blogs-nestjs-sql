@@ -4,7 +4,7 @@ export class CommentViewModel {
   userId: string;
   userLogin: string;
   createdAt: string;
-  extendsLikesInfo: {
+  likesInfo: {
     likesCount: string;
     dislikesCount: string;
     myStatus: string;
@@ -15,7 +15,7 @@ export class CommentViewModel {
     this.userId = model.userId;
     this.userLogin = model.userLogin;
     this.createdAt = model.createdAt;
-    this.extendsLikesInfo = {
+    this.likesInfo = {
       likesCount: model.likesCount,
       dislikesCount: model.dislikesCount,
       myStatus: model.myStatus ?? 'None',
