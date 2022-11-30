@@ -27,7 +27,8 @@ export class PostsQueryRepository {
               From (Select p.*,
                     (select "name" from "Blogs" b
                         Where b."id" = p."blogId") as "blogName"
-                    from "Posts" p 
+                    from "Posts" p
+                    Order by "${queryParams.sortBy}" ${queryParams.sortDirection} 
                     Limit ${queryParams.pageSize} Offset ${skip}) as cu
               left join (Select l."parentId" ,
                     l."addedAt",
@@ -103,6 +104,7 @@ export class PostsQueryRepository {
                         Where b."id" = p."blogId") as "blogName"
                     from "Posts" p   
                     Where p."blogId" = $1
+                    Order by "${queryParams.sortBy}" ${queryParams.sortDirection}
                     Limit ${queryParams.pageSize} Offset ${skip}) as cu
               left join (Select 
                     l."parentId",
