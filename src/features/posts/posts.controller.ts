@@ -29,6 +29,7 @@ import { CreateCommentCommand } from '../comments/application/use-cases/commands
 import { JwtGuard } from '../auth/strategies/jwt.strategy';
 import { ParseStatusLikeEnumPipe } from '../../pipes/status-like-enum.pipe';
 import { SetLikeStatusForPostCommand } from './application/use-cases/commands/set-likeStatus-for-post.use-case';
+import { SortFieldsBlogModel } from '../blogs/typing/blogs.types';
 
 @Controller('posts')
 export class PostsController {
@@ -40,7 +41,10 @@ export class PostsController {
 
   @UseGuards(JwtExtractGuard)
   @Get()
-  async getPosts(@Query() queryParams: QueryParamsDto, @CurrentUser() userId: string) {
+  async getPosts(
+    @Query(new QueryParamsPipe(SortFieldsPostModel)) queryParams: QueryParamsDto,
+    @CurrentUser() userId: string,
+  ) {
     return this.postsQueryRepository.getPosts(queryParams, userId);
   }
 
