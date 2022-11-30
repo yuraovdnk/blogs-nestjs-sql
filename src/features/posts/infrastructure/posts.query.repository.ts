@@ -73,8 +73,11 @@ export class PostsQueryRepository {
               Where likes."likeNum" < 4 OR likes."likeNum" IS null`,
       [postId, userId],
     );
+    console.log(userId);
+    console.log(resQuery);
     if (resQuery[0]) {
       const queryMap = queryPostsMapper(resQuery);
+
       return queryMap[0];
     }
     return null;

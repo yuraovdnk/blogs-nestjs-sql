@@ -44,12 +44,14 @@ export class PostsController {
     return this.postsQueryRepository.getPosts(queryParams, userId);
   }
 
+  @UseGuards(JwtExtractGuard)
   @Get(':postId')
-  async getPostById(@Param('postId', ParseUUIDPipe) postId: string) {
-    const post = await this.postsQueryRepository.getPostById(postId);
+  async getPostById(@Param('postId', ParseUUIDPipe) postId: string, @CurrentUser() userId: string) {
+    const post = await this.postsQueryRepository.getPostById(postId, userId);
     if (!post) {
       throw new NotFoundException();
     }
+    return post;
   }
 
   @Post()
