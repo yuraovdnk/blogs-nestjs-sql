@@ -20,6 +20,7 @@ const configModule = ConfigModule.forRoot({
         synchronize: true,
         extra: {
           max: 5,
+          connectionTimeoutMillis: 1000,
         },
         url:
           process.env.NODE_ENV === 'production'
