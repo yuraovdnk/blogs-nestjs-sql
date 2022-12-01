@@ -64,7 +64,7 @@ export class PostsQueryRepository {
                     l."parentId",
                     l."addedAt",
                     l."userId" as "likeUserId",
-                    ROW_NUMBER() Over (Partition by "parentId" Order By "addedAt" asc) "likeNum",
+                    ROW_NUMBER() Over (Partition by "parentId" Order By "addedAt" desc) "likeNum",
                     (Select "login"
                         from "Users" u
                         Where l."userId" = u."id") as "userLogin"
