@@ -18,10 +18,12 @@ export class PostsQueryRepository {
     const skip = queryParams.pageSize * (queryParams.pageNumber - 1);
     const resQuery: PostModel[] = await this.dataSource.query(
       `Select *, 
-                (select count(*) FILTER(where l."likeStatus" = 'Like') as "likesCount"
-                    From "Likes" l Where l."parentId" = cu."id" )::int,
-                (select count(*) FILTER(where l."likeStatus" = 'Dislike') as "dislikesCount"
-                    From "Likes" l Where l."parentId" = cu."id" )::int,
+                (select count(*)::int  as "likesCount"
+                    From "Likes" l 
+                    Where l."parentId" = cu."id" And l."likeStatus" = 'Like' ),
+                (select count(*)::int   as "dislikesCount"
+                    From "Likes" l 
+                    Where l."parentId" = cu."id" And l."likeStatus" = 'Dislike' ),
                 (Select "likeStatus"  From "Likes" l
                     Where cu."id" = l."parentId" And l."userId" = $1) as "myStatus"             
               From (Select p.*,
@@ -49,10 +51,12 @@ export class PostsQueryRepository {
   async getPostById(postId: string, userId: string = null): Promise<PostViewModel> | null {
     const resQuery: QueryPostModel[] = await this.dataSource.query(
       `Select *, 
-                (select count(*) FILTER(where l."likeStatus" = 'Like') as "likesCount"
-                    From "Likes" l Where l."parentId" = cu."id" )::int,
-                (select count(*) FILTER(where l."likeStatus" = 'Dislike') as "dislikesCount"
-                    From "Likes" l Where l."parentId" = cu."id" )::int,
+                 (select count(*)::int  as "likesCount"
+                    From "Likes" l 
+                    Where l."parentId" = cu."id" And l."likeStatus" = 'Like' ),
+                (select count(*)::int   as "dislikesCount"
+                    From "Likes" l 
+                    Where l."parentId" = cu."id" And l."likeStatus" = 'Dislike' ),
                 (Select "likeStatus"  From "Likes" l
                     Where cu."id" = l."parentId" And l."userId" = $2) as "myStatus"             
               From (Select p.*,
@@ -91,10 +95,12 @@ export class PostsQueryRepository {
 
     const resQuery: QueryPostModel[] = await this.dataSource.query(
       `Select *, 
-                (select count(*) FILTER(where l."likeStatus" = 'Like') as "likesCount"
-                    From "Likes" l Where l."parentId" = cu."id" )::int,
-                (select count(*) FILTER(where l."likeStatus" = 'Dislike') as "dislikesCount"
-                    From "Likes" l Where l."parentId" = cu."id" )::int,
+                 (select count(*)::int  as "likesCount"
+                    From "Likes" l 
+                    Where l."parentId" = cu."id" And l."likeStatus" = 'Like' ),
+                (select count(*)::int   as "dislikesCount"
+                    From "Likes" l 
+                    Where l."parentId" = cu."id" And l."likeStatus" = 'Dislike' ),
                 (Select "likeStatus"  From "Likes" l
                     Where cu."id" = l."parentId" And l."userId" = $2) as "myStatus"             
               From (Select p.*,
