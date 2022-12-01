@@ -19,7 +19,7 @@ const configModule = ConfigModule.forRoot({
         autoLoadEntities: false,
         synchronize: true,
         extra: {
-          max: 5,
+          connectionLimit: 5,
           connectionTimeoutMillis: 1000,
         },
         url:
