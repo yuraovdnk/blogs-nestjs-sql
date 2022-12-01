@@ -18,6 +18,7 @@ const configModule = ConfigModule.forRoot({
         type: 'postgres',
         autoLoadEntities: false,
         synchronize: true,
+        poolSize: 5,
         extra: {
           connectionLimit: 5,
           connectionTimeoutMillis: 1000,
