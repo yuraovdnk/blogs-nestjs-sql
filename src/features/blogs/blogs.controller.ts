@@ -27,6 +27,7 @@ import { DeleteBlogCommand } from './application/use-cases/commands/delete-blog.
 import { CreatePostForBlogCommand } from './application/use-cases/commands/create-post-for-blog.use-case';
 import { PageDto } from '../../utils/PageDto';
 import { BlogViewModel } from './dto/blog-view.model';
+import { SortFieldsPostModel } from '../posts/typing/posts.type';
 
 @Controller('blogs')
 export class BlogsController {
@@ -90,7 +91,7 @@ export class BlogsController {
   @Get(':blogId/posts')
   async getPostsByBlogId(
     @Param('blogId', ParseUUIDPipe) blogId: string,
-    @Query(new QueryParamsPipe(SortFieldsBlogModel)) queryParams: QueryParamsDto,
+    @Query(new QueryParamsPipe(SortFieldsPostModel)) queryParams: QueryParamsDto,
   ) {
     return this.postsQueryRepository.getPostsByBlogId(blogId, queryParams);
   }
