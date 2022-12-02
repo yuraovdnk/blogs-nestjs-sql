@@ -25,6 +25,7 @@ export function queryPostsMapper(resQuery: QueryPostModel[]): PostViewModel[] {
       resultMap.push(postsWithLikes);
       addedPosts[postElem.id] = postsWithLikes;
     }
+
     if (postElem.likesCount) {
       postsWithLikes.extendedLikesInfo.newestLikes.push({
         login: postElem.userLogin,
