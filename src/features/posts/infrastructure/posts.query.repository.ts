@@ -6,6 +6,7 @@ import { QueryParamsDto } from '../../../pipes/query-params.pipe';
 import { PageDto } from '../../../utils/PageDto';
 import { PostViewModel } from '../dto/post-view.model';
 import { queryPostsMapper } from './helpers/postsMapper';
+import { log } from 'util';
 
 @Injectable()
 export class PostsQueryRepository {
@@ -40,12 +41,14 @@ export class PostsQueryRepository {
                         from "Users" u
                         Where l."userId" = u."id") as "userLogin"
                     From "Likes" l 
-                    Where "parentType" = 'post' and "likeStatus" = 'Like') likes
+                    Where l."parentType" = 'post' and l."likeStatus" = 'Like') likes
               ON likes."parentId" = cu."id"
               Where likes."likeNum" < 4 OR likes."likeNum" IS null`,
       [userId],
     );
+    console.log(resQuery);
     const queryMap = queryPostsMapper(resQuery);
+    console.log(queryMap);
     return new PageDto(queryMap, queryParams);
   }
   async getPostById(postId: string, userId: string = null): Promise<PostViewModel> | null {
@@ -78,9 +81,9 @@ export class PostsQueryRepository {
               Where likes."likeNum" < 4 OR likes."likeNum" IS null`,
       [postId, userId],
     );
+    console.log(resQuery);
     if (resQuery[0]) {
       const queryMap = queryPostsMapper(resQuery);
-
       return queryMap[0];
     }
     return null;
