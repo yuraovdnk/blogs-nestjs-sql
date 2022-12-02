@@ -29,7 +29,8 @@ import { CreateCommentCommand } from '../comments/application/use-cases/commands
 import { JwtGuard } from '../auth/strategies/jwt.strategy';
 import { ParseStatusLikeEnumPipe } from '../../pipes/status-like-enum.pipe';
 import { SetLikeStatusForPostCommand } from './application/use-cases/commands/set-likeStatus-for-post.use-case';
-import { SortFieldsBlogModel } from '../blogs/typing/blogs.types';
+import { PostViewModel } from './dto/post-view.model';
+import { PageDto } from '../../utils/PageDto';
 
 @Controller('posts')
 export class PostsController {
@@ -44,7 +45,7 @@ export class PostsController {
   async getPosts(
     @Query(new QueryParamsPipe(SortFieldsPostModel)) queryParams: QueryParamsDto,
     @CurrentUser() userId: string,
-  ) {
+  ): Promise<PageDto<PostViewModel>> {
     return this.postsQueryRepository.getPosts(queryParams, userId);
   }
 
@@ -59,7 +60,7 @@ export class PostsController {
   }
 
   @Post()
-  async createPost(@Body() createPostDto: CreatePostDto) {
+  async createPost(@Body() createPostDto: CreatePostDto): Promise<PostViewModel> {
     const createdPostId = await this.commandBus.execute(new CreatePostCommand(createPostDto));
     return this.postsQueryRepository.getPostById(createdPostId);
   }

@@ -1,7 +1,6 @@
-import { ArgumentMetadata, Injectable, PipeTransform } from '@nestjs/common';
+import { Injectable, PipeTransform } from '@nestjs/common';
 import { Transform } from 'class-transformer';
 import { IsEnum, IsOptional } from 'class-validator';
-import { SortFieldsBlogModel } from '../features/blogs/typing/blogs.types';
 
 export interface IQueryParams {
   searchNameTerm: string;
