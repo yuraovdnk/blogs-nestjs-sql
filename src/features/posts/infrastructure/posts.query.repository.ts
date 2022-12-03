@@ -44,7 +44,7 @@ export class PostsQueryRepository {
                     Where "parentType" = 'post' and "likeStatus" = 'Like') likes
               ON likes."parentId" = cu."id"
               Where likes."likeNum" < 4 OR likes."likeNum" IS null
-              Order by "${queryParams.sortBy}" ${queryParams.sortDirection}`,
+              Order by "${queryParams.sortBy}" ${queryParams.sortDirection},likes."addedAt" desc`,
       [userId],
     );
 
@@ -125,7 +125,7 @@ export class PostsQueryRepository {
                     Where "parentType" = 'post' and "likeStatus" = 'Like') likes
               ON likes."parentId" = cu."id"
               Where likes."likeNum" < 4 OR likes."likeNum" IS null
-              Order by "${queryParams.sortBy}" ${queryParams.sortDirection}`,
+              Order by "${queryParams.sortBy}" ${queryParams.sortDirection}, likes."addedAt" desc`,
       [blogId, userId],
     );
 
