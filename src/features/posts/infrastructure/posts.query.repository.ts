@@ -95,7 +95,6 @@ export class PostsQueryRepository {
     userId: string = null,
   ): Promise<PageDto<PostViewModel>> {
     const skip = queryParams.pageSize * (queryParams.pageNumber - 1);
-
     const resQuery: QueryPostModel[] = await this.dataSource.query(
       `Select *, 
                  (select count(*)::int  as "likesCount"
@@ -125,7 +124,7 @@ export class PostsQueryRepository {
                     Where "parentType" = 'post' and "likeStatus" = 'Like') likes
               ON likes."parentId" = cu."id"
               Where likes."likeNum" < 4 OR likes."likeNum" IS null
-              Order by "${queryParams.sortBy}" ${queryParams.sortDirection}, likes."addedAt" desc`,
+              Order by "${queryParams.sortBy}" ${queryParams.sortDirection},likes."addedAt" desc`,
       [blogId, userId],
     );
 

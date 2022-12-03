@@ -28,6 +28,8 @@ import { CreatePostForBlogCommand } from './application/use-cases/commands/creat
 import { PageDto } from '../../utils/PageDto';
 import { BlogViewModel } from './dto/blog-view.model';
 import { SortFieldsPostModel } from '../posts/typing/posts.type';
+import { JwtExtractGuard } from '../auth/guards/jwt-extract.guard';
+import { CurrentUser } from '../../decorators/current-user.decorator';
 
 @Controller('blogs')
 export class BlogsController {
@@ -87,12 +89,13 @@ export class BlogsController {
     );
     return this.postsQueryRepository.getPostById(createdPostId);
   }
-
+  @UseGuards(JwtExtractGuard)
   @Get(':blogId/posts')
   async getPostsByBlogId(
     @Param('blogId', ParseUUIDPipe) blogId: string,
     @Query(new QueryParamsPipe(SortFieldsPostModel)) queryParams: QueryParamsDto,
+    @CurrentUser() userId: string,
   ) {
-    return this.postsQueryRepository.getPostsByBlogId(blogId, queryParams);
+    return this.postsQueryRepository.getPostsByBlogId(blogId, queryParams, userId);
   }
 }
