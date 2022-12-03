@@ -21,6 +21,7 @@ const configModule = ConfigModule.forRoot({
         poolSize: 5,
         extra: {
           connectionLimit: 5,
+          max: 5,
           connectionTimeoutMillis: 1000,
         },
         url:
